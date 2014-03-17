@@ -1,7 +1,5 @@
-temp-light.js
 
-
-var five = require("../lib/johnny-five.js"),board, photoresistor;
+var five = require("johnny-five"),board, photoresistor;
 
 board = new five.Board();
 
@@ -40,15 +38,15 @@ board.on("ready", function() {
   });
 })
 
-var DataPoint = Parse.Object.extend("DataPoint")
+// var DataPoint = Parse.Object.extend("DataPoint")
 
-var NextData = Parse.Collection.extend({
-  model: DataPoint
-})
+// var NextData = Parse.Collection.extend({
+//   model: DataPoint
+// })
 
-var data = new DataPoint
+// var data = new DataPoint
 
-data.save({
-  temperature: fahrenheit,
-  light: lightLevel
-})
+// data.save({
+//   temperature: fahrenheit,
+//   light: lightLevel
+// })
