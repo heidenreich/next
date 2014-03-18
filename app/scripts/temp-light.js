@@ -1,3 +1,5 @@
+var request = require('request');
+
 
 var five = require("johnny-five"),board, photoresistor;
 
@@ -8,15 +10,15 @@ board.on("ready", function() {
   // create a new temp sensor instance
   var sensor = new five.Sensor({
     pin: "A0",
-    freq: 3000
+    freq: 5000
   });
 
   // create a new photoresistor hardware instance
   photoresistor = new five.Sensor({
     pin: "A1",
-    freq: 3000
-  });
+    freq: 5000,
 
+  });
 
   board.repl.inject({
     pot: photoresistor
@@ -26,6 +28,7 @@ board.on("ready", function() {
   photoresistor.on("data", function() {
     var lightLevel = this.value;
     console.log("the light level is "+ lightLevel);
+    request.post('http://tiny-pizza-server.herokuapp.com/collections/weather')
   });
 
   // "data" get the current reading from the temperature sensor
@@ -33,20 +36,20 @@ board.on("ready", function() {
     var voltage = this.value * 0.004882814;
     var celsius = (voltage - 0.5) * 100;
     var fahrenheit = celsius * (9 / 5) + 32;
-
     console.log(celsius + "°C", fahrenheit + "°F");
+
+
   });
-})
 
-// var DataPoint = Parse.Object.extend("DataPoint")
+  // request.post('http://tiny-pizza-server.herokuapp.com/collections/weather')
 
-// var NextData = Parse.Collection.extend({
-//   model: DataPoint
-// })
+});
 
-// var data = new DataPoint
 
-// data.save({
-//   temperature: fahrenheit,
-//   light: lightLevel
-// })
+
+
+
+
+
+
+
