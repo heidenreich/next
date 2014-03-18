@@ -2,7 +2,8 @@
   "name": "next",
   "version": "0.0.0",
   "dependencies": {
-    "johnny-five": "^0.7.28"
+    "johnny-five": "^0.7.28",
+    "request": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

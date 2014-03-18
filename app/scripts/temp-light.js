@@ -1,9 +1,12 @@
 var request = require('request');
 
-
-var five = require("johnny-five"),board, photoresistor;
+var five = require("johnny-five");
 
 board = new five.Board();
+
+lightLevel = 0
+
+fahrenheit = 0
 
 board.on("ready", function() {
 
@@ -26,25 +29,34 @@ board.on("ready", function() {
 
   // "data" get the current reading from the photoresistor
   photoresistor.on("data", function() {
-    var lightLevel = this.value;
+    lightLevel = this.value;
+    // 255,84*this.value
     console.log("the light level is "+ lightLevel);
-    request.post('http://tiny-pizza-server.herokuapp.com/collections/weather')
   });
 
   // "data" get the current reading from the temperature sensor
   sensor.on("data", function() {
-    var voltage = this.value * 0.004882814;
-    var celsius = (voltage - 0.5) * 100;
-    var fahrenheit = celsius * (9 / 5) + 32;
+    voltage = this.value * 0.004882814;
+    celsius = (voltage - 0.5) * 100;
+    fahrenheit = celsius * (9 / 5) + 32;
     console.log(celsius + "°C", fahrenheit + "°F");
 
 
   });
 
-  // request.post('http://tiny-pizza-server.herokuapp.com/collections/weather')
-
 });
 
+setInterval(function() {
+  request.post({
+    url: 'http://tiny-pizza-server.herokuapp.com/collections/weather',
+    form:{
+      lightIntensity: lightLevel,
+      temperature: fahrenheit,
+      location: 'lecture hall',
+      time: Date.now()
+    }
+  });
+}, 10000);
 
 
 
