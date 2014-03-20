@@ -45,17 +45,17 @@ board.on("ready", function() {
 
 });
 
-// setInterval(function() {
-//   request.post({
-//     url: 'http://tiny-pizza-server.herokuapp.com/collections/weather',
-//     form:{
-//       lightIntensity: lightLevel,
-//       temperature: fahrenheit,
-//       location: 'lecture hall',
-//       time: Date.now()
-//     }
-//   });
-// }, 10000);
+setInterval(function() {
+  request.post({
+    url: 'http://tiny-pizza-server.herokuapp.com/collections/weather',
+    form:{
+      lightIntensity: lightLevel,
+      temperature: fahrenheit,
+      location: 'lecture hall',
+      time: Date.now()
+    }
+  });
+}, 10000);
 
 
 
